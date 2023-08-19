@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div>
+      <button id="native-html1" class="native-html1" type="button">
+        Native html counter <span class="native-html-counter">3</span> 
+      </button>
+      <button id="native-html2" class="native-html2" type="button">
+        Native html counter <span class="native-html-counter">3</span> 
+      </button>
+      <button id="native-html3" class="native-html3" type="button">
+        Native html counter <span class="native-html-counter">3</span> 
+      </button>
+    </div>
+    <div id="app"></div>
+    <div>
+     <my-button counter='0'></my-button>
+     <my-button counter='2'></my-button>
+     <my-button counter='3'></my-button>
+    </div>
+    <script type="module" src="/nativeHtml.js"></script>
+    <script type="module" src="/main.js"></script>
+    <script type="module" src="/webComponents.js"></script>
+  </body>
+</html>
