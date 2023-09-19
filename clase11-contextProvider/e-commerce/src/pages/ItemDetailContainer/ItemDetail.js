@@ -15,6 +15,12 @@ const ItemDetail = ({ image, title, description, rating, price, category }) => {
     addItemsToCart(number)
   }
 
+  if (!title) {
+    return (
+      <h1>El producto no fue encontrado</h1>
+    )
+  }
+
   return (
     <article className='flex flex-col rounded-md overflow-hidden p-2 pb-8'>
       <picture className='w-[200px] min-w-[200px] max-w-[200px] m-auto'>
@@ -24,7 +30,7 @@ const ItemDetail = ({ image, title, description, rating, price, category }) => {
         <h3 className='font-bold text-4xl'>{title}</h3>
         <p>{description}</p>
         <span className='bg-indigo-700 text-white self-start py-0.5 px-3 rounded-md text-sm'>{category}</span>
-        <p><span className='text-yellow-600'>{getRate(rating?.rate)}</span> / {rating?.count} reviews</p>
+        {rating && <p><span className='text-yellow-600'>{getRate(rating?.rate)}</span> / {rating?.count} reviews</p>}
         <strong className='mb-4'>${price}</strong>
         <div className='flex justify-end w-full'>
           {quantityAdd > 0

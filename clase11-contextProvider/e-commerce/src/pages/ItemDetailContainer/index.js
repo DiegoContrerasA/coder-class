@@ -17,9 +17,17 @@ const Detail = () => {
     getProductById(Number(id))
       .then((product) => {
         setProduct(product)
+        // setLoading(false)
       })
-      .catch(err => console.log({ err }))
+      .catch(err => {
+        console.log({ err })
+        // setLoading(false)
+      })
       .finally(() => setLoading(false))
+
+    // return () => {
+    //   //
+    // }
   }, [id])
 
   return (
