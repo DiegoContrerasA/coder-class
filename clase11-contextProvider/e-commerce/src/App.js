@@ -7,6 +7,8 @@ import ItemDetailContainer from 'pages/ItemDetailContainer'
 import CartProvider from 'context/CartProvider'
 import { useTheme } from 'context/ThemeProvider'
 import AuthProvider from 'context/AuthProvider'
+// import Skeleton from 'components/Skeleton'
+
 // useState
 
 // Regla # 1
@@ -15,11 +17,14 @@ function App () {
   return (
     <AuthProvider>
       <CartProvider>
-        <div id='rootApp' class={theme}>
+        <main id='rootApp' class={theme}>
           <div id='theme'>
             <BrowserRouter>
               <NavBar />
-              <section className='max-w-5xl mx-auto pt-[100px]'>
+
+              <main className='max-w-5xl mx-auto pt-[100px]'>
+                {/* Aqui les dejo un ejemplo de un custom skeleton */}
+                {/* <Skeleton wigth={40} heigth={100} /> */}
                 <Routes>
                   <Route path='/' element={<ItemListContainer />} />
                   <Route path='category/:categoryId' element={<ItemListContainer />} />
@@ -27,10 +32,10 @@ function App () {
                   <Route path='cart' element={<Cart />} />
                   <Route path='*' element={<NotFound />} />
                 </Routes>
-              </section>
+              </main>
             </BrowserRouter>
           </div>
-        </div>
+        </main>
       </CartProvider>
     </AuthProvider>
   )

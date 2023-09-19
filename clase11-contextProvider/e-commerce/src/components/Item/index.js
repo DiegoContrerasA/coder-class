@@ -1,7 +1,8 @@
 import { LinkIcon } from 'icons'
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
 
-const Item = ({
+const Item = memo(({
   id,
   title,
   price,
@@ -32,6 +33,6 @@ const Item = ({
       </Link>
     </div>
   )
-}
+})
 
 export default Item

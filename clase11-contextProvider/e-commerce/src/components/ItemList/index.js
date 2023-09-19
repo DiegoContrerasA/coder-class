@@ -2,8 +2,9 @@ import ItemSkeleton from 'components/Item/ItemSkeleton'
 import Item from '../Item'
 import { Link } from 'react-router-dom'
 import { EmptyIcon } from 'icons'
+import { memo } from 'react'
 
-const ItemList = ({ products, loading }) => {
+const ItemList = memo(({ products, loading }) => {
   if (loading) {
     return (
       <div className='grid gap-5 grid-cols-4'>
@@ -29,6 +30,6 @@ const ItemList = ({ products, loading }) => {
       {products.map((product) => <Item key={product.id} {...product} />)}
     </div>
   )
-}
+})
 
 export default ItemList

@@ -3,7 +3,7 @@ import { useTheme } from 'context/ThemeProvider'
 import { Link, NavLink } from 'react-router-dom'
 
 const NavBar = () => {
-  const { theme, changeTheme } = useTheme()
+  const { changeTheme } = useTheme()
 
   return (
     <>
