@@ -1,7 +1,7 @@
 import Filters from 'components/Filters'
 import ItemList from 'components/ItemList'
+import { getItems } from 'firebaseConfig/services'
 
-import { getProducts } from 'mock'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -16,8 +16,12 @@ const ItemListContainer = () => {
 
   useEffect(() => {
     setLoading(true)
-    getProducts(categoryId)
-      .then((products) => setProducts(products))
+
+    getItems(categoryId)
+      .then((snapshots) => {
+        const products = snapshots.docs.map((snapshot) => ({ id: snapshot.id, ...snapshot.data() }))
+        setProducts(products)
+      })
       .catch(err => console.log({ err }))
       .finally(() => setLoading(false))
   }, [categoryId])

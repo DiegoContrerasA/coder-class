@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { getProductById } from 'mock'
 import { ReactComponent as LeftIcon } from 'icons/left.svg'
 import { useParams, Link } from 'react-router-dom'
 import ItemDetail from './ItemDetail'
 import Loading from './Loading'
+import { getItem } from 'firebaseConfig/services'
 
 const Detail = () => {
   const [loading, setLoading] = useState(false)
@@ -12,16 +12,16 @@ const Detail = () => {
   // params.productId
   const { id } = useParams() // {productId: ??}
 
+  //
   useEffect(() => {
     setLoading(true)
-    getProductById(Number(id))
-      .then((product) => {
-        setProduct(product)
-        // setLoading(false)
+
+    getItem(id)
+      .then((snapshot) => {
+        setProduct({ id: snapshot.id, ...snapshot.data() })
       })
       .catch(err => {
         console.log({ err })
-        // setLoading(false)
       })
       .finally(() => setLoading(false))
 

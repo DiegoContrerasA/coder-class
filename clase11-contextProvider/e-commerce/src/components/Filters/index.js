@@ -1,12 +1,28 @@
-import { getCategories } from 'mock'
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { getFirestore, collection, getDocs } from 'firebase/firestore'
 
 const Filters = () => {
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
-    getCategories().then((categories) => setCategories(categories))
+    // iniciamos la conexion
+    const db = getFirestore()
+
+    // creamos la referencia a la collection
+    const categories = collection(db, 'categories')
+
+    // Obtenemos los datos de la collection
+
+    // getCategories()
+    getDocs(categories).then((snapshots) => {
+      // tenemos que mapear los datos de mi snapshots
+      const categories = snapshots.docs.map((snapshot) => ({
+        id: snapshot.id,
+        ...snapshot.data()
+      }))
+      setCategories(categories)
+    })
   }, [])
 
   return (
@@ -15,7 +31,7 @@ const Filters = () => {
         <NavLink
           key={id}
           end
-          to={`/category/${id}`}
+          to={`/category/${name}`}
           className={({ isActive }) => `px-2 py-1 rounded-md hover:bg-indigo-100 ${isActive ? 'bg-indigo-100' : ''}`}
         >
           {name}
