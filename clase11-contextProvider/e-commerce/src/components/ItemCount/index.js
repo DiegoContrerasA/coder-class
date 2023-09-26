@@ -18,6 +18,14 @@ const ItemCount = ({ stock, initial, onAdd }) => {
     onAdd(quantity)
   }
 
+  if (!stock) {
+    return (
+      <div className='flex gap-3 text-red-700 bg-red-200 max-w-[200px] py-1 px-2 rounded-full'>
+        No products in stock
+      </div>
+    )
+  }
+
   return (
     <div className='flex items-center max-w-[300px] h-[30px] '>
       <div className='flex border border-indigo-700 rounded-tl-lg rounded-bl-lg overflow-hidden'>

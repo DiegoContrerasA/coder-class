@@ -5,21 +5,23 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getRate } from 'utils/getRate'
 
-const ItemDetail = ({ image, title, description, rating, price, category }) => {
+const ItemDetail = ({ item }) => {
   const [quantityAdd, setQuantityAdd] = useState(0)
 
-  const { addItemsToCart } = useCart()
+  const { addItem } = useCart()
 
   const handleAddToCard = (number) => {
     setQuantityAdd(number)
-    addItemsToCart(number)
+    addItem(item, number)
   }
 
-  if (!title) {
+  if (!item) {
     return (
       <h1>El producto no fue encontrado</h1>
     )
   }
+
+  const { image, title, description, rating, price, category, stock } = item
 
   return (
     <article className='flex flex-col rounded-md overflow-hidden p-2 pb-8'>
@@ -41,7 +43,7 @@ const ItemDetail = ({ image, title, description, rating, price, category }) => {
                 <LeftIcon className='rotate-180' />
               </Link>
               )
-            : <ItemCount stock={5} initial={1} onAdd={handleAddToCard} />}
+            : <ItemCount stock={stock || 0} initial={1} onAdd={handleAddToCard} />}
         </div>
       </div>
 

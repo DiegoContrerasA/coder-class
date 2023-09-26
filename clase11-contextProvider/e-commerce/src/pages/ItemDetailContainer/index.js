@@ -3,7 +3,7 @@ import { ReactComponent as LeftIcon } from 'icons/left.svg'
 import { useParams, Link } from 'react-router-dom'
 import ItemDetail from './ItemDetail'
 import Loading from './Loading'
-import { getItem } from 'firebaseConfig/services'
+import { getItem } from 'firebaseConfig/services/items'
 
 const Detail = () => {
   const [loading, setLoading] = useState(false)
@@ -36,7 +36,7 @@ const Detail = () => {
         <LeftIcon />
         Go Back
       </Link>
-      {loading ? <Loading /> : <ItemDetail {...product} />}
+      {loading ? <Loading /> : <ItemDetail item={product} />}
     </section>
   )
 }

@@ -1,9 +1,19 @@
 import CartWidget from 'components/CartWidget'
+import { useAuth } from 'context/AuthProvider'
 import { useTheme } from 'context/ThemeProvider'
+import { logOut } from 'firebaseConfig/services/auth'
+import { LogoutIcon } from 'icons'
 import { Link, NavLink } from 'react-router-dom'
 
 const NavBar = () => {
   const { changeTheme } = useTheme()
+  const { user, onLogout } = useAuth()
+
+  const handleLogout = () => {
+    logOut().then(() => {
+      onLogout()
+    })
+  }
 
   return (
     <>
@@ -25,14 +35,22 @@ const NavBar = () => {
               className={({ isActive }) => `px-2 py-1 rounded-md ${isActive ? ' bg-indigo-700 text-white' : 'hover:bg-indigo-100'} `}
             >Products
             </NavLink>
-            <NavLink
-              end
-              to='/my-orders'
-              className={({ isActive }) => `px-2 py-1 rounded-md ${isActive ? ' bg-indigo-700 text-white' : 'hover:bg-indigo-100'} `}
-            >My orders
-            </NavLink>
+            {user && (
+              <>
+                <NavLink
+                  end
+                  to='/orders'
+                  className={({ isActive }) => `px-2 py-1 rounded-md ${isActive ? ' bg-indigo-700 text-white' : 'hover:bg-indigo-100'} `}
+                >Orders
+                </NavLink>
+
+              </>)}
           </ul>
           <CartWidget />
+          {user && (
+            <button onClick={handleLogout} className='flex w-[40px] h-[40px] relative rounded-full bg-red-200 items-center justify-center text-red-800'>
+              <LogoutIcon />
+            </button>)}
         </nav>
       </header>
     </>
