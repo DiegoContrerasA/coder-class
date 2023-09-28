@@ -2,12 +2,16 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { Storage } from 'utils/storage'
 
-// Paso 2 crear el context, deberia tener el prefijo del archivo
+// TODO: CartContext ✅
+// TODO: Stado donde vamos a almacenar nuestro items
+// TODO: Debemos crear una funcion que me permita agragegar un item
+// TODO: Una funcion que me permita remover 1 item
+// TODO: Una funcion que me permita limpiar el carrito
+
 const CartContext = createContext()
 
 const CartProvider = ({ children }) => {
   const [items, setItems] = useState(() => Storage.get('items') || [])
-  // Tener los estados.
 
   useEffect(() => {
     Storage.add('items', items)
@@ -23,12 +27,11 @@ const CartProvider = ({ children }) => {
 
   const clearItems = () => setItems([])
 
-  const isInCard = (id) => items.some(item => item.id === id)
+  const isInCard = (id) => items.some(item => item.id === id) // true o false
 
   const getTotal = () => parseFloat(items.reduce((acc, current) => acc + current?.price, 0)).toFixed(2)
 
   return (
-    // Asiganmos el value, en este caso sera un objeto que tiene 1 prop items que por default sera un array vacio
     <CartContext.Provider value={{
       items, addItem, removeItem, clearItems, total: getTotal()
     }}

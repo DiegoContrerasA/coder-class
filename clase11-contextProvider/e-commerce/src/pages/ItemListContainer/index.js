@@ -2,7 +2,7 @@ import Filters from 'components/Filters'
 import ItemList from 'components/ItemList'
 import { getItems } from 'firebaseConfig/services/items'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 const ItemListContainer = () => {
@@ -34,6 +34,12 @@ const ItemListContainer = () => {
     setFilterProducts(filter)
   }
 
+  const getFilterProducts = useMemo(() => {
+    console.log('se ejecuta')
+    return products
+      .filter(({ title }) => title.toLowerCase().includes(search))
+  }, [search, products])
+
   return (
     <>
       <h1 className='text-center mb-5 text-4xl font-extrabold text-transparent
@@ -48,7 +54,7 @@ const ItemListContainer = () => {
           <button className='bg-indigo-700 text-white rounded-tr-md rounded-br-md px-2'>Buscar</button>
         </form>
       </div>
-      <ItemList products={filterProducts?.length ? filterProducts : products} loading={loading} />
+      <ItemList products={getFilterProducts} loading={loading} />
       {/* <ItemCount stock={8} initial={1} onAdd={onAdd} /> */}
     </>
   )

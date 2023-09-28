@@ -1,29 +1,15 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { getFirestore, collection, getDocs } from 'firebase/firestore'
+import { getCategories } from 'firebaseConfig/services/categories'
+import { useCategories } from 'hooks/useCategories'
 
 const Filters = () => {
-  const [categories, setCategories] = useState([])
+  const { categories, getCategories } = useCategories()
 
   useEffect(() => {
-    // iniciamos la conexion
-    const db = getFirestore()
-
-    // creamos la referencia a la collection
-    const categories = collection(db, 'categories')
-
-    // Obtenemos los datos de la collection
-
-    // getCategories()
-    getDocs(categories).then((snapshots) => {
-      // tenemos que mapear los datos de mi snapshots
-      const categories = snapshots.docs.map((snapshot) => ({
-        id: snapshot.id,
-        ...snapshot.data()
-      }))
-      setCategories(categories)
-    })
-  }, [])
+    getCategories()
+    console.log('here')
+  }, [getCategories])
 
   return (
     <nav className='flex justify-center gap-2'>

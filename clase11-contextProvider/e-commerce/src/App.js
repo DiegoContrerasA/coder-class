@@ -16,9 +16,12 @@ import PrivateRoute from 'route/PrivateRoute'
 import Checkout from 'pages/Checkout'
 import MyOrders from 'pages/MyOrders'
 import AddProduct from 'pages/Admin/AddProduct'
+import { useEffect } from 'react'
+import { uploadProducts } from 'firebaseConfig/services/bulkProducts'
 
 function App () {
   const { theme } = useTheme()
+
   return (
     <AuthProvider>
       <ToastContainer theme='colored' />
